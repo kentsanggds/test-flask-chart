@@ -1,0 +1,17 @@
+---
+# Source: test-flask/templates/service.yaml
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: test-flask-3
+  labels:
+    app: test-flask-3
+    dns: route53
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 5100
+  selector:
+    app: test-flask-3

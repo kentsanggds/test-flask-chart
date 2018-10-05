@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+  name: {{ .Values.app.name }}
+spec:
+  rules:
+  - host: {{ .Values.app.name }}.example.govsvc.uk
+    http:
+      paths:
+      - backend:
+          serviceName: {{ .Values.app.name }}
+          servicePort: 80
+  tls:
+  - hosts:
+    - {{ .Values.app.name }}.example.govsvc.uk
+    secretName: {{ .Values.app.name }}-tls-cert

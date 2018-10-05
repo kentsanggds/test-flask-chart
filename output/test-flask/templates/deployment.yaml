@@ -1,0 +1,28 @@
+---
+# Source: test-flask/templates/deployment.yaml
+---
+kind: Deployment
+apiVersion: apps/v1beta2
+metadata:
+  labels:
+    app: test-flask-3
+  name: test-flask-3
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: test-flask-3
+  template:
+    metadata:
+      labels:
+        app: test-flask-3
+        prometheus_scrape: "true"
+    spec:
+      containers:
+      - name: test-flask-3
+        image: kenlt/test-flask-app:sandbox
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5100
+          protocol: TCP

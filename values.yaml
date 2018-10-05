@@ -1,0 +1,8 @@
+app:
+  name: test-flask
+
+scrape:
+  enabled: true
+
+# helm template --name x --set scrape.enabled true app.name test-flask-2
+# helm template --name v1 --set scrape.enabled=true --set app.name=test-flask-2 --output-dir=output .

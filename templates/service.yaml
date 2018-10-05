@@ -1,0 +1,15 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ .Values.app.name }}
+  labels:
+    app: {{ .Values.app.name }}
+    dns: route53
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 5100
+  selector:
+    app: {{ .Values.app.name }}

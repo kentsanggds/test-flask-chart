@@ -1,0 +1,28 @@
+---
+kind: Deployment
+apiVersion: apps/v1beta2
+metadata:
+  labels:
+    app: {{ .Values.app.name }}
+  name: {{ .Values.app.name }}
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.name }}
+        {{ if .Values.scrape.enabled -}}
+        prometheus_scrape: "true"
+        {{- end }}
+    spec:
+      containers:
+      - name: {{ .Values.app.name }}
+        image: kenlt/test-flask-app:sandbox
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5100
+          protocol: TCP
